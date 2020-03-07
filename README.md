@@ -1,5 +1,23 @@
 # node-vue-moba
 
+## 安装所需依赖模块
+```
+npm install
+```
+
+## 运行
+```
+npm run serve
+```
+
+## 打包
+```
+npm run build
+```
+
+
+
+
 ### 首先是安装node.js，因为这个项目要用到vue-cli3，vue-cli3是基于webpack搭建的，所以需要安装node9以上的环境
 
 下面是安装node时踩得一部分坑和记录一下新学习到要用到的一些模块：<br>
