@@ -1,0 +1,257 @@
+@import './variables'; //scss中被包含（被引用）的文件以_开头命名，引用的时候不需要_
+
+//reset 
+
+* {                             
+    box-sizing: border-box;     //盒模型以边框为准
+    outline: none;
+}
+
+html {
+    font-size: 13px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.2em;
+    background: #f1f1f1;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: #999;
+
+}
+
+p{
+    line-height: 1.5em;
+}
+
+
+
+// color
+@each $colorKey, $color in $colors {
+    .text-#{$colorKey} {
+        color: $color;
+    }
+    .bg-#{$colorKey} {
+        background-color: $color;
+    }
+}
+
+// text align
+@each $var in (left, center, right) {
+    .text-#{$var} {
+        text-align: $var !important;
+    }
+}
+
+
+@each $sizeKey, $size in $font-sizes {
+    .fs-#{$sizeKey}{
+        font-size: $size*$base-font-size;
+    }
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-colum {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+// width 
+.w-100 {
+    width: 100%;
+}
+.h-100 {
+    height: 100%;
+}
+
+
+
+@each $key, $value in $flex-jc {
+    .jc-#{$key} {
+        justify-content: $value;
+    } 
+}
+
+
+
+@each $key, $value in $flex-ai {
+    .ai-#{$key} {
+        align-items: $value;
+    } 
+}
+
+.flex-1 {
+    flex: 1;   //表示自己增大撑开，占有剩余的空间
+}
+
+.flex-grow-1 {
+    flex-grow: 1;   //表示自己增大撑开，占有剩余的空间
+}
+
+
+
+@each $typeKey, $type in $spacing-types {
+    // .m-1
+    @each $sizeKey, $size in $spacing-sizes {
+        .#{$typeKey}-#{$sizeKey} {
+            #{$type}: $size * $spacing-base-size; //.m-1 { margin: 0.25rem }
+        }
+    }
+
+    // .mx-1    .mx-1 { margin-left: 0.25rem; margin-right: 0.25rem; }
+    @each $sizeKey, $size in $spacing-sizes {
+        .#{$typeKey}x-#{$sizeKey} {             
+            #{$type}-left: $size * $spacing-base-size; 
+            #{$type}-right: $size * $spacing-base-size;     
+        }
+
+        .#{$typeKey}y-#{$sizeKey} {
+            #{$type}-top: $size * $spacing-base-size; 
+            #{$type}-bottom: $size * $spacing-base-size;
+        }
+    } 
+
+    // .mt-1
+    @each $directionKey, $direction in $spacing-directions {
+        @each $sizeKey, $size in $spacing-sizes {
+            .#{$typeKey}#{$directionKey}-#{$sizeKey} {   //.mt-1 { margin-top: 0.25rem }
+                #{$type}-#{$direction}: $size * $spacing-base-size;
+            }
+        }
+    }
+}
+
+// text overflow
+.text-ellipsis{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+//button
+.btn {
+    border: none;
+    border-radius: 0.1538rem;
+    font-size: map-get($font-sizes , 'sm') * $base-font-size ;    //从我们预定义的样式里选择一个
+    padding: 0.2rem 0.6rem;
+    &.btn-lg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i {
+            color: map-get($colors, 'primary');
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+        background: map-get($colors, 'white-1');
+        border: 1px solid map-get($colors, 'white-2');
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+
+
+
+.nav {                  //普通
+    display: flex;
+    .nav-item {         
+        border-bottom: 3px solid transparent;
+        padding-bottom: 0.2rem;       
+        &.active {  //表示nav-item本身
+            color: map-get($colors, 'primary');
+            border-bottom-color: map-get($colors, 'primary');      //item处透明边框，高亮处白色边框，能让边框对其
+        }
+    }
+    &.nav-inverse {     //反色
+        
+        .nav-item {
+            color: map-get($colors, 'white');
+            &.active {
+                border-bottom-color: map-get($colors, 'white');  
+            }
+        }
+    }
+}
+
+//sprite
+.sprite {
+    background: url(../images/index.png) no-repeat 0 0;
+    background-size: 28.8462rem;            //设计师在设计网页是，图片一般是双倍像素设计的
+    display: inline-block;
+    &.sprite-news {                         //爆料站
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.546% 15.517%;
+    }
+    &.sprite-story {                        //故事站
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 90.483% 15.614%;
+    }
+    &.sprite-store {                        //周边商城      
+        width: 1.4615rem;
+        height: 1.6923rem;
+        background-position: 36.746% 0.924%;
+    }
+    &.sprite-test {                         //体验服
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 10.408% 15.517%;
+    }
+    &.sprite-rookies {                      //新人专区
+        width: 1.5385rem;
+        height: 1.6154rem;
+        background-position: 89.733% 1.266%;
+    }
+    &.sprite-royal {                        //荣耀传承
+        width: 1.8462rem;
+        height: 1.5385rem;
+        background-position: 36.467% 15.287%;
+    }
+    &.sprite-same {                         //同人专区
+        width: 26px;
+        height: 21px;
+        background-position: 9.728% 1.266%;
+    }
+    &.sprite-camp {                         //王者营地
+        width: 1.8462rem;
+        height: 1.8462rem;
+        background-position: 63.3% 0.927%;
+    }
+    &.sprite-official {                     //公众号
+        width: 1.8462rem;
+        height: 1.5385rem;
+        background-position: 0 96.207%;
+    }
+    &.sprite-description {                  //版本介绍
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 10.408% 15.517%;
+    }
+
+    &.sprite-arrow {
+        width: 0.7692rem;
+        height: 0.7692rem;
+        background-position: 38.577% 52.076%;
+    }
+}
+
+
+//borders 
+@each $dir in (top, right, bottom, left) {
+    .border-#{$dir} {
+        border-#{$dir}: 1px solid $border-color;
+    }
+}
